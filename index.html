@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Horse Clicker</title>
+    <link href="src/css/main_menu.css" rel="stylesheet" type="text/css" />
+    <link href="src/css/upgrade.css" rel="stylesheet" type="text/css" />
+    <link href="src/css/money-bar.css" rel="stylesheet" type="text/css" />
+    <link href="src/css/jauge.css" rel="stylesheet" type="text/css" />
+    <link href="src/css/model3d.css" rel="stylesheet" type="text/css" />
+    <link href="src/css/stamina-bar.css" rel="stylesheet" type="text/css" />
+    <link href="src/css/mission-style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <!-- Page 1 : Menu principal -->
+    <div id="main-menu" class="page">
+
+        <div class="title-container">
+            <h1>H<img src="/src/images/menu/horse_9276546.png" class="title-image" alt="O">RSE</h1>
+            <h2>CLICKER</h2>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="div">
+                <p id="h2">Loading....<span id="lol"></span></p>
+            </div>
+        </div>
+
+        <div id="menu-container"></div> <!-- Conteneur pour Three.js -->
+
+        <button id="start-game-btn">Commencer</button>
+
+        <!-- Navbar Menu -->
+        <div class="navbar">
+            <div class="navbar-content">
+                <img src="src/images/menu/Itemicon_Home.Png" id="back-to-menu-btn" alt="Home"></img>
+
+                <label class="container fullscreen-btn">
+                    <input type="checkbox" id="fullscreen-toggle">
+                    <svg viewBox="0 0 448 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="expand">
+                        <path
+                            d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H64V352zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32H320zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V352z">
+                        </path>
+                    </svg>
+                    <svg viewBox="0 0 448 512" height="1em" xmlns="http://www.w3.org/2000/svg" class="compress">
+                        <path
+                            d="M160 64c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V64zM32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32H96v64c0 17.7 14.3 32 32 32s32-14.3 32-32V352c0-17.7-14.3-32-32-32H32zM352 64c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V64zM320 320c-17.7 0-32 14.3-32 32v96c0 17.7 14.3 32 32 32s32-14.3 32-32V384h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H320z">
+                        </path>
+                    </svg>
+                </label>
+
+                <!-- Bouton de contrôle de musique -->
+                <div class="music-control">
+                    <input type="checkbox" id="music-toggle">
+                    <label for="music-toggle" class="toggleSwitch">
+                        <div class="speaker">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 75 75">
+                                <path
+                                    d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z"
+                                    style="stroke:#fff;stroke-width:5;stroke-linejoin:round;fill:#fff;"></path>
+                                <path
+                                    d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6"
+                                    style="fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round"></path>
+                            </svg>
+                        </div>
+                        <div class="mute-speaker">
+                            <svg version="1.0" viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
+                                <path d="m39,14-17,15H6V48H22l17,15z" fill="#fff" stroke-linejoin="round"></path>
+                                <path d="m49,26 20,24m0-24-20,24" fill="#fff" stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                    </label>
+                    <!-- Barre de volume -->
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page 2  -->
+    <div id="game-ui" class="page" style="display: none;">
+
+        <!-- missions -->
+        <div class="mission-container">
+            <div class="mission-header">Mission: <span id="mission-title"></span></div>
+            <div class="mission-description" id="mission-description"></div>
+            <div class="mission-progress-bar">
+                <div class="mission-progress-fill" id="mission-progress-fill"></div>
+            </div>
+            <div class="mission-info">
+                <div>Progression: <span id="mission-progress">0/0</span></div>
+                <div class="mission-time" id="mission-time">Temps: 30s</div>
+            </div>
+            <div id="mission-result-container" style="display: none;">
+                <div class="mission-result" id="mission-result"></div>
+                <div class="mission-reward" id="mission-reward"></div>
+            </div>
+        </div>
+        <!-- Money bar -->
+        <div class="money-container">
+            <div class="money-icon">
+                <img src="src/images//money/betting_6918399.png" alt="Money icon">
+            </div>
+            <div class="money-amount">
+                <span id="money-value">0</span>
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div class="ChevalPanel">
+
+                <!-- Food Upgrade -->
+                <div class="UpgradePanelLeft">
+                    <h2>Nourriture</h2>
+                    <div class="food-container">
+                        <div class="Foods" id="FirstFood">
+                            <img class="UpgradeImage" src="/src/images/upgradefood/Carrot.png" alt="Carottes">
+                            <div class="text-content">
+                                <div class="Name">Carottes</div>
+                                <div class="Price">10$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="FirstFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="SecondFood">
+                            <img class="UpgradeImage" src="/src/images/upgradefood/hay-roll.png" alt="Foin">
+                            <div class="text-content">
+                                <div class="Name">Foin</div>
+                                <div class="Price">25$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="SecondFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="ThirdFood">
+                            <img class="UpgradeImage" src="/src/images/upgradefood/oats.png" alt="Granulés">
+                            <div class="text-content">
+                                <div class="Name">Granulés</div>
+                                <div class="Price">50$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="ThirdFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="FourthFood">
+                            <img class="UpgradeImage" src="/src/images/upgradefood/apple.png" alt="Pomme">
+                            <div class="text-content">
+                                <div class="Name">Pomme</div>
+                                <div class="Price">100$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="FourthFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="FifthFood">
+                            <img class="UpgradeImage" src="/src/images/upgradefood/golden-apple.png" alt="Golden Pomme">
+                            <div class="text-content">
+                                <div class="Name">Golden Pomme</div>
+                                <div class="Price">1000$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="FifthFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stamina bar -->
+                <div class="stamina-bar-container">
+                    <div class="stamina-bar-label">STAMINA</div>
+                    <div class="stamina-bar-wrapper">
+                        <div class="stamina-bar-fill"></div>
+                        <div class="stamina-bar-glow"></div>
+                    </div>
+                    <div class="stamina-value">100</div>
+                </div>
+
+                <!-- Jauge Meter -->
+                <div class="click-meter-container">
+                    <div class="click-meter-label">Objectif: 0/1000</div>
+                    <div class="click-meter-wrapper">
+                        <div class="click-meter-fill"></div>
+                        <div class="click-meter-glow"></div>
+                    </div>
+                </div>
+
+                <div class="Modelpart">
+                    <div id="Model3D"></div> <!-- Conteneur pour le cheval -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/src/js/scriptmenu.js" type="module"></script>
+    <script src="/src/js/fullscreen.js" type="module"></script>
+    <script src="/src/js/music-control.js" type="module"></script>
+    <script src="/src/js/model3d.js" type="module"></script>
+    <script src="/src/js/money.js" type="module"></script>
+    <script src="/src/js/jauge.js" type="module"></script>
+    <script src="/src/js/script_gameplay.js" type="module"></script>
+    <script src="/src/js/food-upgrade.js" type="module"></script>
+    <script src="/src/js/mission-system.js" type="module"></script>
+</body>
+
+</html>

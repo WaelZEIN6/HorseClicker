@@ -1,0 +1,388 @@
+* {
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  background-image: url("/src/images/Background/2.jpg");
+  background-size: contain;
+  overflow: hidden; /* Empêche le défilement de la page */
+}
+
+/* Styles pour le Titre du jeu */
+.title-container {
+  position: absolute;
+  top: 10%; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none; /* Permet aux clics de passer à travers le titre */
+}
+
+.title-container h1 {
+  font-family: "Arial Black", sans-serif;
+  font-size: 8rem;
+  color: #fff;
+  text-shadow: 
+  0 0 10px #8B4513,
+  0 0 20px #A0522D,
+  0 0 30px #D2691E,
+  3px 3px 0 #000;
+  margin: 0;
+  letter-spacing: 0.5rem;
+
+}
+
+/* Style pour l'image remplaçant le O dans HORSE */
+.title-image {
+  height: 6.5rem; 
+  vertical-align: middle; /* Alignement vertical avec le texte */
+  margin: 0 -5px; /* Légère correction de l'espacement */
+  display: inline-block;
+  transform: translateY(-5px); 
+}
+
+.title-container h2 {
+  font-family: "Arial Black", sans-serif;
+  font-size: 6.5rem; 
+  color: #fff;
+  text-shadow: 
+      0 0 10px #8B4513,
+      0 0 20px #A0522D,
+      0 0 30px #D2691E,
+      3px 3px 0 #000;
+  margin: 0;
+  letter-spacing: 0.3rem;
+  margin-top: -1rem; 
+}
+
+
+#main-menu {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+#menu-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* En arrière-plan */
+}
+
+.progress-bar-container {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Au-dessus de #menu-container */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.game-content {
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 60px;
+  left: 0;
+}
+
+
+/* Styles pour le bouton de démarrage du jeu */
+#start-game-btn {
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: none; /* Caché au départ */
+  position: absolute;
+  bottom: 35%; 
+  left: 50%;
+  transform: translateX(-50%); 
+}
+
+
+#start-game-btn.visible {
+  display: block;
+}
+
+#start-game-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+  transform: translateX(-50%) scale(1.1); /* Maintient le centrage lors du hover */
+}
+
+
+#h2 {
+  color: white;
+  mix-blend-mode: difference;
+  text-align: center;
+  margin: 0;
+  font-size: 18px;
+  line-height: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 0 0 3px;
+  padding: 0;
+  letter-spacing: 5px;
+}
+
+.div {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to right, white 50%, black 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0; /* Départ à droite (0% chargé) */
+  border-radius: 10px;
+  box-shadow: 0 0 3px;
+  -webkit-box-reflect: below 1px linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+  transition: background-position 0.3s ease; /* Transition uniquement pour la progression */
+}
+
+
+@media (max-width: 768px) {
+  .div {
+    width: 80%;
+  }
+}
+
+/* Style pour la navbar en bas à droite */
+.navbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style pour le bouton home */
+#back-to-menu-btn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: transform 0.3s;
+}
+
+#back-to-menu-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Ajustement du style fullscreen pour correspondre */
+.container.fullscreen-btn {
+  margin-left: 0;
+}
+
+/* Animation en hover sur la navbar */
+.navbar-content:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Suppression des styles précédents qui ne sont plus nécessaires */
+.btn-back {
+  display: none;
+}
+
+/* Animation douce d'apparition */
+.navbar {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Styles pour le bouton  musique */
+
+.music-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.toggleSwitch {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(39, 39, 39);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: .3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+#music-toggle {
+  display: none;
+}
+
+.speaker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition-duration: .3s;
+}
+
+.speaker svg {
+  width: 18px;
+}
+
+.mute-speaker {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 3;
+  transition-duration: .3s;
+}
+
+.mute-speaker svg {
+  width: 18px;
+}
+
+#music-toggle:checked + .toggleSwitch .speaker {
+  opacity: 0;
+  transition-duration: .3s;
+}
+
+#music-toggle:checked + .toggleSwitch .mute-speaker {
+  opacity: 1;
+  transition-duration: .3s;
+}
+
+#music-toggle:active + .toggleSwitch {
+  transform: scale(0.85);
+}
+
+#music-toggle + .toggleSwitch:hover {
+  background-color: rgb(61, 61, 61);
+}
+
+/* Animation lors du changement d'état */
+.toggleSwitch::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.toggleSwitch:active::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* Fullscreen button styles */
+.container.fullscreen-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.container.fullscreen-btn input {
+  display: none; /* Hide the checkbox */
+}
+
+/* Default state - show expand icon */
+.container.fullscreen-btn .expand {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.container.fullscreen-btn .compress {
+  display: none;
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+/* When checkbox is checked (fullscreen mode) - show compress icon */
+.container.fullscreen-btn input:checked ~ .expand {
+  display: none;
+}
+
+.container.fullscreen-btn input:checked ~ .compress {
+  display: block;
+}
+
+/* Hover effect */
+.container.fullscreen-btn:hover svg {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+/* Barre de volume */
+#volume-slider {
+  width: 100px;
+  margin-left: 10px;
+  accent-color: white;
+  background: transparent;
+  cursor: pointer;
+}
+

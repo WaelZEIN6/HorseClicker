@@ -1,0 +1,118 @@
+.click-meter-container {
+  position: absolute;
+  margin: 10px;
+  right: 20px;
+  top:60%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60px;
+  height: 300px;
+  z-index: 10;
+}
+
+.click-meter-label {
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 2px 2px 2px #000;
+  margin-bottom: 5px;
+  font-size: 16px;
+  text-align: center;
+  transform: rotate(-3deg);
+}
+
+.click-meter-wrapper {
+  width: 40px;
+  height: 250px;
+  border: 4px solid #5a2e0d;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.4), 
+      inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.click-meter-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: transparent;
+  border: 2px solid #8b5a2b;
+  border-radius: 22px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.click-meter-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0%; 
+  background: linear-gradient(to top, 
+      #ff6b00, 
+      #ffcc00 50%, 
+      #ffee00);
+  border-radius: 20px;
+  transition: height 0.3s ease-out;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+  z-index: 2;
+}
+
+/* Animation de remplissage */
+.click-meter-fill.glow-active {
+  animation: glow-pulse 1s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+/* Marqueurs de progression */
+.click-meter-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 49px,
+      rgba(0, 0, 0, 0.3) 49px,
+      rgba(0, 0, 0, 0.3) 50px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Animation de confettis pour récompenses */
+.confetti {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.8;
+  z-index: 9999;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}

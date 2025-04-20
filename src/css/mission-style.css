@@ -1,0 +1,125 @@
+.mission-container {
+    position: absolute;
+    margin: 10px;
+    top: 20px;
+    right: 20px;
+    left: auto;
+    transform: none;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(43, 23, 5, 0.9));
+    border: 3px solid #ff9800;
+    border-radius: 12px;
+    padding: 15px;
+    color: white;
+    z-index: 1000;
+    text-align: center;
+    min-width: 300px;
+    max-width: 350px;
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+
+
+@keyframes missionAppear {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes missionDisappear {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+.mission-header {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(255, 152, 0, 0.7);
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.mission-header:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ff9800, transparent);
+}
+
+.mission-description {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.mission-progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid #555;
+}
+
+.mission-progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+    position: relative;
+}
+
+.mission-progress-fill:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.mission-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.mission-time {
+    font-size: 16px;
+    color: #ff5722;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mission-result {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mission-result.success {
+    color: #4CAF50;
+    text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.mission-result.failure {
+    color: #F44336;
+    text-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+}
+
+.mission-reward {
+    font-size: 16px;
+    color: #FFD700;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
