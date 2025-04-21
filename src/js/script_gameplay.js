@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const clickableElement = document.getElementById('Model3D');
   if (!clickableElement) {
-    console.error('Could not find clickable element with ID "Model3D"');
+    //console.error('Could not find clickable element with ID "Model3D"');
     return;
   }
 
@@ -39,22 +39,30 @@ document.addEventListener('DOMContentLoaded', () => {
   createProgressIndicator();
 });
 
+let isAnimating = false;
+
 function playClickAnimation(element) {
+  if (isAnimating) return;
+
+  isAnimating = true;
   element.style.transition = 'transform 0.1s ease';
   element.style.transform = 'scale(1.1) rotate(2deg)';
-  
+
   setTimeout(() => {
     element.style.transform = 'scale(1) rotate(0deg)';
-  }, 100);
-}
+  }, 10);
 
+  setTimeout(() => {
+    isAnimating = false;
+  }, 100); // Durée suffisante pour que l'animation se termine
+}
 
 // Fonction pour créer/mettre à jour l'indicateur de progression
 function createProgressIndicator() {
   const progressIndicator = document.querySelector('.click-meter-label');
   
   if (!progressIndicator) {
-    console.error("Element .click-meter-label non trouvé");
+    //console.error("Element .click-meter-label non trouvé");
     return;
   }
 

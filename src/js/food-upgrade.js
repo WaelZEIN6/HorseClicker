@@ -30,7 +30,7 @@ const foodUpgrades = [
     {
         id: 'FourthFood',
         name: 'Pomme',
-        basePrice: 800,             
+        basePrice: 500,             
         level: 0,
         buttonId: 'FourthFoodButton',
         staminaBonus: 100           
@@ -38,7 +38,7 @@ const foodUpgrades = [
     {
         id: 'FifthFood',
         name: 'Golden Pomme',
-        basePrice: 250,            
+        basePrice: 800,            
         level: 0,
         buttonId: 'FifthFoodButton',
         staminaBonus: 180           

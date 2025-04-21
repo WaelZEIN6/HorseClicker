@@ -6,7 +6,7 @@ function initMoney() {
   moneyDisplay = document.getElementById('money-value');
 
   if (!moneyDisplay) {
-    console.error("Élément d'affichage d'argent introuvable");
+    //console.error("Élément d'affichage d'argent introuvable");
     return;
   }
 

@@ -84,6 +84,8 @@ let missionActive = false;
 let usingFallbackMission = false;
 let gaugeStartValue = 0;
 let transitionInProgress = false;
+let delayBetweenMissionsTimer = null;
+let missionDelayTimeLeft = 0;
 
 // Éléments DOM
 let missionContainer;
@@ -91,6 +93,7 @@ let missionTitle;
 let missionDescription;
 let missionProgress;
 let missionTime;
+let missionDelayCounter;
 
 function initMissionSystem() {
     createMissionUI();
@@ -129,6 +132,9 @@ function createMissionUI() {
                     <div class="mission-result" id="mission-result"></div>
                     <div class="mission-reward" id="mission-reward"></div>
                 </div>
+                <div id="mission-delay-container" style="display: none;">
+                    <div class="mission-delay-message">Prochaine mission dans: <span id="mission-delay-counter">15s</span></div>
+                </div>
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', missionHTML);
@@ -139,6 +145,7 @@ function createMissionUI() {
     missionDescription = document.getElementById('mission-description');
     missionProgress = document.getElementById('mission-progress');
     missionTime = document.getElementById('mission-time');
+    missionDelayCounter = document.getElementById('mission-delay-counter');
 }
 
 function showMissionUI() {
@@ -168,11 +175,76 @@ function checkMissionUnlock() {
     }
     
     if (nextMissionIndex >= missions.length) {
-        console.log("Toutes les missions sont terminées!");
+        //console.log("Toutes les missions sont terminées!");
         return;
     }
     
-    startMission(nextMissionIndex);
+    // Si ce n'est pas la première mission, ajouter un délai de 30 secondes
+    if (nextMissionIndex > 0 && !delayBetweenMissionsTimer) {
+        startMissionDelay(nextMissionIndex);
+    } else if (nextMissionIndex === 0) {
+        startMission(nextMissionIndex);
+    }
+}
+
+function startMissionDelay(missionIndex) {
+    transitionInProgress = true;
+    missionDelayTimeLeft = 15;
+    
+    // Afficher l'UI pour le délai
+    showMissionUI();
+    
+    const resultContainer = document.getElementById('mission-result-container');
+    const delayContainer = document.getElementById('mission-delay-container');
+    
+    if (resultContainer && delayContainer) {
+        resultContainer.style.display = 'none';
+        delayContainer.style.display = 'block';
+        
+        missionTitle.textContent = `Prochaine mission`;
+        missionDescription.textContent = `La mission ${missions[missionIndex].name} va bientôt commencer...`;
+        
+        // Cacher la barre de progression pendant le délai
+        const progressBar = document.querySelector('.mission-progress-bar');
+        const missionInfo = document.querySelector('.mission-info');
+        
+        if (progressBar && missionInfo) {
+            progressBar.style.display = 'none';
+            missionInfo.style.display = 'none';
+        }
+        
+        missionDelayCounter.textContent = `${missionDelayTimeLeft}s`;
+    }
+    
+    // Démarrer le minuteur de délai
+    delayBetweenMissionsTimer = setInterval(() => {
+        missionDelayTimeLeft--;
+        
+        if (missionDelayCounter) {
+            missionDelayCounter.textContent = `${missionDelayTimeLeft}s`;
+        }
+        
+        if (missionDelayTimeLeft <= 0) {
+            clearInterval(delayBetweenMissionsTimer);
+            delayBetweenMissionsTimer = null;
+            
+            // Réinitialiser l'affichage
+            if (delayContainer) {
+                delayContainer.style.display = 'none';
+            }
+            
+            const progressBar = document.querySelector('.mission-progress-bar');
+            const missionInfo = document.querySelector('.mission-info');
+            
+            if (progressBar && missionInfo) {
+                progressBar.style.display = 'block';
+                missionInfo.style.display = 'flex';
+            }
+            
+            // Lancer la mission après le délai
+            startMission(missionIndex);
+        }
+    }, 1000);
 }
 
 // Function to start a mission
@@ -418,4 +490,4 @@ function startFallbackMission() {
     }, 1000);
 }
 
-export { initMissionSystem };   
+export { initMissionSystem };

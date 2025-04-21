@@ -15,7 +15,7 @@ class FullscreenManager {
                 }
             });
         } else {
-            console.error("Élément fullscreen-toggle non trouvé");
+            //console.error("Élément fullscreen-toggle non trouvé");
         }
 
         // Écouter les changements d'état de plein écran

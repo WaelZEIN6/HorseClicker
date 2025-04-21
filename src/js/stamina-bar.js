@@ -20,7 +20,7 @@ function initStaminaBar() {
   const staminaContainer = document.querySelector('.stamina-bar-container');
 
   if (!staminaBarFill || !staminaBarGlow || !staminaValueDisplay || !staminaContainer) {
-    console.error("Éléments de la barre de stamina introuvables");
+    //console.error("Éléments de la barre de stamina introuvables");
     return;
   }
 

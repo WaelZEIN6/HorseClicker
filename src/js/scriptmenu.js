@@ -48,7 +48,7 @@ function main() {
     const loadingBar = document.querySelector('.div');
 
     loadingManager.onStart = () => {
-        console.log('Début du chargement');
+        //console.log('Début du chargement');
         if (!wasInGame) {
             progressContainer.style.display = 'flex';
             startBtn.style.display = 'none';
@@ -63,7 +63,7 @@ function main() {
     };
 
     loadingManager.onLoad = () => {
-        console.log('Chargement terminé');
+        //console.log('Chargement terminé');
         loadingBar.style.backgroundPosition = '0% 0';
         progressContainer.style.display = 'none';
         if (!wasInGame) {
@@ -72,7 +72,7 @@ function main() {
     };
 
     loadingManager.onError = (url) => {
-        console.error(`Erreur lors du chargement de : ${url}`);
+        //console.error(`Erreur lors du chargement de : ${url}`);
     };
 
     // Background avec texture
@@ -84,7 +84,7 @@ function main() {
         },
         undefined,
         (error) => {
-            console.error('Erreur lors du chargement du background :', error);
+            //console.error('Erreur lors du chargement du background :', error);
             scene.background = new THREE.Color(0x87ceeb);
         }
     );

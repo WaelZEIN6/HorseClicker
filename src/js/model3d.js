@@ -123,16 +123,16 @@ function main() {
 
                 createBase();
                 scene.add(horseModel);
-                console.log("Modèle de cheval chargé avec succès!");
+                //console.log("Modèle de cheval chargé avec succès!");
 
                 updateMaterialSettings();
             },
             (xhr) => {
                 const progress = Math.floor((xhr.loaded / xhr.total) * 100);
-                console.log(`Chargement du modèle: ${progress}%`);
+                //console.log(`Chargement du modèle: ${progress}%`);
             },
             (error) => {
-                console.error(`Erreur chargement ${path}:`, error);
+                //console.error(`Erreur chargement ${path}:`, error);
             }
         );
     };
