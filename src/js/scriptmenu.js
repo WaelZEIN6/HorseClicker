@@ -78,7 +78,7 @@ function main() {
     // Background avec texture
     const textureLoader = new THREE.TextureLoader(loadingManager);
     textureLoader.load(
-        '/src/images/Background/sky_image.jpg',
+        './images/Background/sky_image.jpg',
         (texture) => {
             scene.background = texture;
         },
@@ -135,7 +135,7 @@ function main() {
     };
 
     // Charger le modèle
-    loadModel('/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
+    loadModel('./assets/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
 
     // Gestion du redimensionnement
     window.addEventListener('resize', () => {

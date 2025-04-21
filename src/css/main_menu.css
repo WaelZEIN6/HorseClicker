@@ -8,7 +8,7 @@
 body {
   font-family: Arial, sans-serif;
   height: 100vh;
-  background-image: url("/src/images/Background/2.jpg");
+  background-image: url("/images/Background/2.jpg");
   background-size: contain;
   overflow: hidden; /* Empêche le défilement de la page */
 }

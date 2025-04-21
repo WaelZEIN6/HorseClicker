@@ -35,9 +35,9 @@ function main() {
 
     const textureLoader = new THREE.TextureLoader();
 
-    const baseColorTexture = textureLoader.load('/src/assets/textures/Horse_BaseColor.png');
-    const normalTexture = textureLoader.load('/src/assets/textures/Horse_Normal.png');
-    const roughnessTexture = textureLoader.load('/src/assets/textures/Horse_Roughtness.png');
+    const baseColorTexture = textureLoader.load('./assets/textures/Horse_BaseColor.png');
+    const normalTexture = textureLoader.load('./assets/textures/Horse_Normal.png');
+    const roughnessTexture = textureLoader.load('./assets/textures/Horse_Roughtness.png');
 
     let horseModel;
 
@@ -137,7 +137,7 @@ function main() {
         );
     };
 
-    loadModel('/src/assets/Horse.fbx', { x: 0.2, y: 0.2, z: 0.2 }, { x: 0, y: -15, z: 0 });
+    loadModel('./assets/Horse.fbx', { x: 0.2, y: 0.2, z: 0.2 }, { x: 0, y: -15, z: 0 });
 
     let resizeTimeout;
     window.addEventListener('resize', () => {

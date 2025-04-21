@@ -2,7 +2,7 @@
 
 Un jeu clicker interactif en 3D où vous prenez soin d'un cheval virtuel.
 
-![Horse CLICKER Game](src/images/Jeu.png)
+![Horse CLICKER Game](public/images/Jeu.png)
 
 ## Description
 
@@ -28,17 +28,17 @@ Votre objectif final est de remplir la jauge jusqu'à 1500 points tout en accomp
 - Vite (bundler)
 - Git LFS (pour le stockage des fichiers volumineux)
 
-## Prérequis
+## Jouer en ligne
 
-- Node.js (version recommandée : 14.x ou supérieure)
-- NPM ou Yarn
+Vous pouvez jouer à Horse CLICKER directement en ligne :
+[https://waelzein6.github.io/HorseClicker/](https://waelzein6.github.io/HorseClicker/)
 
-## Installation
+## Installation locale
 
 1. Clonez le dépôt Git :
 ```bash
-git clone https://github.com/votre-username/horse-clicker.git
-cd horse-clicker
+git clone https://github.com/WaelZEIN6/HorseClicker.git
+cd HorseClicker
 ```
 
 2. Installez les dépendances :
@@ -48,14 +48,23 @@ npm install
 
 3. Lancez le serveur de développement :
 ```bash
-npx vite
+npm run dev
 ```
 
-4. Ouvrez votre navigateur à l'adresse indiquée (généralement http://localhost:3000)
+4. Ouvrez votre navigateur à l'adresse indiquée (généralement http://localhost:5173)
+
+## Déploiement
+
+Pour déployer le jeu sur GitHub Pages :
+
+```bash
+npm run build
+npm run deploy
+```
 
 ## Utilisation de Git LFS
 
-Ce projet utilise Git Large File Storage (LFS) pour gérer les fichiers 3D volumineux (GLTF et GLB). Si vous souhaitez contribuer ou cloner le projet, assurez-vous d'avoir Git LFS installé :
+Ce projet utilise Git Large File Storage (LFS) pour gérer les fichiers 3D volumineux (FBX et GLB). Si vous souhaitez contribuer ou cloner le projet, assurez-vous d'avoir Git LFS installé :
 
 ```bash
 git lfs install
@@ -64,26 +73,33 @@ git lfs pull
 
 ## Structure du projet
 ```
-CHEVALCLICKER/
-├── node-modules/
+ChevalClicker/
+├── node_modules/
+├── public/
+│   ├── assets/         # Modèles 3D (LowPolyTrees.glb)
+│   ├   ├── textures/   # Textures pour les modèles
+│   ├── images/         # Images statiques
+│   │   └── Background/ # Images d'arrière-plan
+│   │   └── menu/       # Icones du menu
+│   │   └── money/      # Icone d'argent
+│   │   └── upgradefood/ # Icones nourritures
+│   └── sound/          # Fichiers audio
 ├── src/
-│   ├── assets/         # Modèles 3D FBX/GLB et textures
 │   ├── css/            # Styles CSS
-│   ├── images/         # Images
-│   ├── js/             # Fichiers javascript
-│   ├── sound/          # Musique du jeu
-│   └── index.html      # Page principale
+│   ├── js/             # Fichiers JavaScript
+├── .gitattributes      # Configuration Git LFS
+├── .gitignore          # Configuration Git 
+├── index.html          # Page principale
+├── vite.config.js      # Configuration Vite 
 ├── package-lock.json
-├── package.json        # Configuration Vite
-└── README.md           # Ce fichier
-
+├── package.json        # Mettez à jour pour inclure 
+└── README.md
 ```
 
 ## Auteurs
-``` bash
-Wael ZEIN   
-Guillaume Leleux
-Martin Mollat
-```
+
+- Wael ZEIN
+- Guillaume Leleux
+- Martin Mollat
 
 Amusez-vous bien avec HORSE CLICKER ! 🐴
