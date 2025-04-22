@@ -1,12 +1,12 @@
 import { getCurrentStaminaMultiplier } from './stamina-bar.js';
 import { addMoney } from './money.js';
 
-
 let clickMeterValue = 0;
-const MAX_METER = 1500;         
-const DECAY_RATE = 4;           
-const CLICK_VALUE = 1;          
+const MAX_METER = 1500;
+const DECAY_RATE = 4;
+const CLICK_VALUE = 1;
 
+let starsCount = 0;
 
 function initClickMeter() {
   setInterval(decayClickMeter, 100);
@@ -14,11 +14,11 @@ function initClickMeter() {
 
 function updateClickMeter() {
   clickMeterValue = Math.max(0, Math.min(MAX_METER, clickMeterValue));
-  
+
   const heightPercentage = (clickMeterValue / MAX_METER) * 100 + '%';
   const fill = document.querySelector('.click-meter-fill');
   const glow = document.querySelector('.click-meter-glow');
-  
+
   if (fill) fill.style.height = heightPercentage;
   if (glow) glow.style.height = heightPercentage;
 
@@ -42,8 +42,18 @@ function decayClickMeter() {
 
 function achieveGoal() {
   clickMeterValue = 0;
-  addMoney(1500);  
+  addMoney(1500);
+  incrementStars();
+  updateClickMeter();
   createCelebration();
+}
+
+function incrementStars() {
+  starsCount++;
+  const starDisplay = document.getElementById('stars-count');
+  if (starDisplay) {
+    starDisplay.textContent = starsCount;
+  }
 }
 
 function createCelebration() {
@@ -55,7 +65,7 @@ function createCelebration() {
       confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
       confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
       document.body.appendChild(confetti);
-      
+
       setTimeout(() => {
         document.body.removeChild(confetti);
       }, 5000);
@@ -64,4 +74,4 @@ function createCelebration() {
 }
 
 export { incrementClickMeter, initClickMeter, MAX_METER };
-
+export { starsCount, incrementStars };

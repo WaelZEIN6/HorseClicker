@@ -386,3 +386,15 @@ body {
   cursor: pointer;
 }
 
+.bonus-bubble {
+  animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    bottom: -50px;
+  }
+  to {
+    bottom: 90%;
+  }
+}

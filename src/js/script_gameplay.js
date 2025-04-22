@@ -3,10 +3,22 @@ import { incrementClickMeter, initClickMeter, MAX_METER } from './jauge.js';
 import { getCurrentStaminaMultiplier } from './stamina-bar.js';
 import { initMissionSystem } from './mission-system.js';
 
+let bonusActive = false;
+let bonusMultiplier = 1;
+let bonusTimeout = null;
+
+
 document.addEventListener('DOMContentLoaded', () => {
   // Initialiser la jauge de clic
   initClickMeter();
   initMissionSystem();
+
+  // Bonus bubble qui spawn régulièrement
+  setInterval(() => {
+    if (!bonusActive && Math.random() < 0.5) {
+      spawnBonusBubble();
+    }
+  }, 30000); // toutes les 30 secondes
   
   const clickableElement = document.getElementById('Model3D');
   if (!clickableElement) {
@@ -22,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const staminaMultiplier = getCurrentStaminaMultiplier();
       
       // Calculer la valeur gagnée en combinant les deux multiplicateurs
-      const earnedValue = BASE_CLICK_VALUE * staminaMultiplier;
+      const earnedValue = BASE_CLICK_VALUE * staminaMultiplier * bonusMultiplier;
       
       // Ajouter l'argent basé sur la valeur calculée
       addMoney(earnedValue);
@@ -56,6 +68,97 @@ function playClickAnimation(element) {
     isAnimating = false;
   }, 100); // Durée suffisante pour que l'animation se termine
 }
+function spawnBonusBubble() {
+  const bubble = document.createElement('div');
+  bubble.className = 'bonus-bubble';
+  bubble.textContent = 'x5 BONUS';
+
+  // Style et position
+  bubble.style.position = 'absolute';
+  bubble.style.left = `${Math.random() * 80 + 10}%`;
+  bubble.style.bottom = '-50px';
+  bubble.style.padding = '10px 20px';
+  bubble.style.background = 'gold';
+  bubble.style.color = '#000';
+  bubble.style.borderRadius = '20px';
+  bubble.style.cursor = 'pointer';
+  bubble.style.fontWeight = 'bold';
+  bubble.style.zIndex = '9999';
+  bubble.style.transition = 'bottom 5s linear';
+
+  document.body.appendChild(bubble);
+
+  // Animation de montée
+  setTimeout(() => {
+    bubble.style.bottom = '90%';
+  }, 50);
+
+  // Clique pour activer le bonus
+  bubble.addEventListener('click', () => {
+    activateBonus();
+    document.body.removeChild(bubble);
+  });
+
+  // Disparition automatique
+  setTimeout(() => {
+    if (document.body.contains(bubble)) {
+      document.body.removeChild(bubble);
+    }
+  }, 5000);
+}
+
+function showBonusBanner(duration) {
+  let banner = document.createElement('div');
+  banner.id = 'bonus-banner';
+  banner.style.position = 'fixed';
+  banner.style.top = '100px';
+  banner.style.left = '50%';
+  banner.style.transform = 'translateX(-50%)';
+  banner.style.padding = '10px 20px';
+  banner.style.backgroundColor = '#ffdd57';
+  banner.style.border = '2px solid #000';
+  banner.style.color = '#000';
+  banner.style.fontWeight = 'bold';
+  banner.style.fontSize = '16px';
+  banner.style.borderRadius = '8px';
+  banner.style.zIndex = '10000';
+  banner.textContent = `Bonus x5 actif ! Temps restant : ${duration}s`;
+
+  document.body.appendChild(banner);
+
+  let secondsLeft = duration;
+  const interval = setInterval(() => {
+    secondsLeft--;
+    if (banner) {
+      banner.textContent = `Bonus x5 actif ! Temps restant : ${secondsLeft}s`;
+    }
+
+    if (secondsLeft <= 0) {
+      clearInterval(interval);
+      if (banner && banner.parentNode) {
+        banner.parentNode.removeChild(banner);
+      }
+    }
+  }, 1000);
+}
+
+function activateBonus() {
+  bonusMultiplier = 5;
+  bonusActive = true;
+
+  const originalBg = document.body.style.backgroundColor;
+  document.body.style.backgroundColor = '#fff8dc';
+
+  showBonusBanner(30); // 🎯 Ajout ici
+
+  if (bonusTimeout) clearTimeout(bonusTimeout);
+  bonusTimeout = setTimeout(() => {
+    bonusMultiplier = 1;
+    bonusActive = false;
+    document.body.style.backgroundColor = originalBg;
+  }, 30000);
+}
+
 
 // Fonction pour créer/mettre à jour l'indicateur de progression
 function createProgressIndicator() {
