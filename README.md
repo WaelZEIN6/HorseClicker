@@ -1,99 +1,75 @@
 # Horse CLICKER
 
-Un jeu clicker interactif en 3D où vous prenez soin d'un cheval virtuel.
+Un jeu clicker en 3D où vous prenez soin d'un cheval virtuel… et bâtissez un empire équestre.
 
 ![Horse CLICKER Game](public/images/Jeu.png)
 
-## Description
+## Comment jouer
 
-Horse CLICKER est un jeu de type "clicker" développé en web. Cliquez sur le cheval pour gagner des ressources, achetez de la nourriture pour augmenter son niveau de nourriture et sa barre de stamina. Plus la stamina augmente, meilleurs sont vos multiplicateurs de points !
+- **Cliquez sur le cheval** (ou appuyez sur Espace) pour gagner de l'argent. Enchaînez les clics pour monter un **combo** (jusqu'à ×2).
+- **Nourriture** : recharge la stamina et donne un bonus permanent par clic. Plus la stamina est haute, plus le multiplicateur est fort (×1 → ×3).
+- **Bâtiments** : produisent de l'argent tout seuls, même quand vous ne cliquez pas (palefrenier, abreuvoir, écurie, pâturage, manège, haras).
+- **Jauge** : remplissez-la pour gagner une ⭐ (+10 % de revenus permanents) et une prime.
+- **Missions** : des objectifs chronométrés, générés selon votre progression, avec des récompenses à la clé.
+- **Fer à cheval doré** : attrapez-le quand il passe pour ×5 au clic et ×2 revenus pendant 30 s.
+- **Nouvelle génération** (prestige) : après 100 000 $ gagnés, repartez de zéro avec des 🏆 (+25 % chacun) et un cheval qui évolue (Poulain → Cheval → Étalon → Champion).
+- **Succès** : 15 à débloquer, chacun ajoute +1 % de revenus.
+- **Sauvegarde automatique** et **gains hors-ligne** (50 % du revenu passif, plafonnés à 8 h).
 
-Votre objectif final est de remplir la jauge jusqu'à 1500 points tout en accomplissant diverses missions qui apparaîtront au cours du jeu.
+## Technologies
 
-## Fonctionnalités principales
-
-- **Système de clics interactif** : Cliquez sur le cheval 3D pour gagner de l'argent 
-- **Gestion de ressources** : Achetez de la nourriture pour augmenter le multiplicateur
-- **Barre de stamina** : Augmentez la stamina pour obtenir de meilleurs multiplicateurs
-- **Système de missions** : Complétez diverses missions qui apparaissent pendant le jeu
-- **Modèles 3D** : Visualisation du cheval en 3D grâce à Three.js
-- **Objectif final** : Remplir la jauge principale à 1500 points
-
-## Technologies utilisées
-
-- HTML5
-- CSS3
-- JavaScript
-- Three.js (pour les modèles 3D)
-- Vite (bundler)
-- Git LFS (pour le stockage des fichiers volumineux)
+- HTML5 / CSS3 / JavaScript (modules ES)
+- Three.js pour la 3D
+- Vite comme bundler
+- Web Audio API pour les effets sonores (aucun fichier audio supplémentaire)
 
 ## Jouer en ligne
 
-Vous pouvez jouer à Horse CLICKER directement en ligne :
 [https://waelzein6.github.io/HorseClicker/](https://waelzein6.github.io/HorseClicker/)
 
 ## Installation locale
 
-1. Clonez le dépôt Git :
 ```bash
 git clone https://github.com/WaelZEIN6/HorseClicker.git
 cd HorseClicker
-```
-
-2. Installez les dépendances :
-```bash
 npm install
-```
-
-3. Lancez le serveur de développement :
-```bash
 npm run dev
 ```
 
-4. Ouvrez votre navigateur à l'adresse indiquée (généralement http://localhost:5173)
+Puis ouvrez l'adresse indiquée (généralement http://localhost:5173/HorseClicker/).
 
 ## Déploiement
 
-Pour déployer le jeu sur GitHub Pages :
+Le site est déployé automatiquement sur GitHub Pages par le workflow `.github/workflows/deploy.yml` à chaque push sur `master`
+(dans les paramètres du dépôt, *Pages → Source* doit être réglé sur **GitHub Actions**).
+
+Déploiement manuel possible aussi :
 
 ```bash
 npm run build
 npm run deploy
 ```
 
-## Utilisation de Git LFS
-
-Ce projet utilise Git Large File Storage (LFS) pour gérer les fichiers 3D volumineux (FBX et GLB). Si vous souhaitez contribuer ou cloner le projet, assurez-vous d'avoir Git LFS installé :
-
-```bash
-git lfs install
-git lfs pull
-```
-
 ## Structure du projet
+
 ```
-ChevalClicker/
-├── node_modules/
+HorseClicker/
 ├── public/
-│   ├── assets/         # Modèles 3D (LowPolyTrees.glb)
-│   ├   ├── textures/   # Textures pour les modèles
-│   ├── images/         # Images statiques
-│   │   └── Background/ # Images d'arrière-plan
-│   │   └── menu/       # Icones du menu
-│   │   └── money/      # Icone d'argent
-│   │   └── upgradefood/ # Icones nourritures
-│   └── sound/          # Fichiers audio
+│   ├── assets/          # Modèles 3D (Horse.fbx, LowPolyTrees.glb compressé Draco) et textures WebP
+│   ├── draco/           # Décodeur Draco (servi localement)
+│   ├── images/          # Fonds, icônes du menu, nourritures
+│   └── sound/           # Musique de fond (chargée à la demande)
 ├── src/
-│   ├── css/            # Styles CSS
-│   ├── js/             # Fichiers JavaScript
-├── .gitattributes      # Configuration Git LFS
-├── .gitignore          # Configuration Git 
-├── index.html          # Page principale
-├── vite.config.js      # Configuration Vite 
-├── package-lock.json
-├── package.json        # Mettez à jour pour inclure 
-└── README.md
+│   ├── css/             # Styles (game.css = nouveaux éléments et responsive)
+│   └── js/
+│       ├── main.js      # Point d'entrée : boucle unique requestAnimationFrame
+│       ├── core/        # data.js (tables), state.js (état + sauvegarde), economy.js (formules)
+│       ├── systems/     # missions, bonus, musique, plein écran
+│       ├── three/       # scène du cheval et décor du menu
+│       └── ui/          # panneaux, effets visuels, sons, formatage des nombres
+├── index.html
+├── vite.config.js
+└── package.json
 ```
 
 ## Auteurs

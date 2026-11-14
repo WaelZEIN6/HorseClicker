@@ -1,0 +1,206 @@
+/* Nouveaux éléments : panneau bâtiments, combo, nombres flottants, toasts, modales, prestige, responsive. */
+
+/* ---- Panneaux latéraux ------------------------------------------------- */
+.UpgradePanelRight {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-height: 90vh;
+  width: 340px;
+  background: linear-gradient(135deg, #2f4a2a 0%, #3f6b36 50%, #2f4a2a 100%);
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 15px 10px;
+  overflow: hidden;
+}
+.UpgradePanelRight h2 {
+  text-align: center;
+  color: #e8ffd8;
+  font-size: 24px;
+  margin-bottom: 4px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding-bottom: 8px;
+  border-bottom: 2px solid #9ccc65;
+}
+.side-panel .panel-hint {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.UpgradePanelLeft h2 { margin-bottom: 4px; }
+.food-container { max-height: calc(90vh - 90px); overflow-y: auto; padding-right: 4px; }
+.food-container::-webkit-scrollbar { width: 6px; }
+.food-container::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.35); border-radius: 3px; }
+
+.item-row { cursor: default; opacity: 0.75; transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s; }
+.item-row.affordable { opacity: 1; }
+.item-row.affordable .UpgradeButton { box-shadow: 0 0 10px rgba(255, 200, 80, 0.7); }
+.item-row:not(.affordable) .UpgradeButton { filter: grayscale(0.6); }
+.item-row .Number { font-size: 12px; }
+.Building { background: linear-gradient(145deg, #4e7d3f, #6aa84f) !important; border-color: #2d4a24 !important; }
+.ItemIcon {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; line-height: 1; filter: none;
+}
+.item-row.bought { animation: bought 0.35s ease-out; }
+@keyframes bought {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); box-shadow: 0 0 20px rgba(255, 230, 120, 0.9); }
+  100% { transform: scale(1); }
+}
+
+/* ---- Argent ---------------------------------------------------------------- */
+.money-container { width: auto; min-width: 340px; height: auto; padding: 6px 12px; }
+.money-amount { display: flex; flex-direction: column; align-items: center; line-height: 1.05; }
+.income-line { font-size: 13px; color: #4a7c2f; text-shadow: none; font-weight: bold; min-height: 15px; }
+.trophy-icon { font-size: 26px; margin-right: 6px; }
+
+/* ---- Cheval : combo, titre, valeur du clic --------------------------------- */
+.Modelpart { height: 460px; }
+#Model3D { height: 400px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+#Model3D:active { transform: scale(0.98); }
+#combo-indicator {
+  position: absolute; top: 4px; left: 50%; transform: translateX(-50%) scale(0.8);
+  font-family: 'Arial Black', sans-serif; font-size: 26px; color: #ffd700;
+  text-shadow: 2px 2px 0 #000, 0 0 12px #ff9800; opacity: 0; pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s; z-index: 5;
+}
+#combo-indicator.visible { opacity: 1; transform: translateX(-50%) scale(1); }
+#combo-indicator.hot { color: #ff4d4d; text-shadow: 2px 2px 0 #000, 0 0 16px #ff0000; animation: hot 0.4s infinite alternate; }
+@keyframes hot { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.12); } }
+#horse-title, #click-value {
+  text-align: center; color: #fff; font-weight: bold; text-shadow: 1px 1px 2px #000, 0 0 8px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+#horse-title { font-size: 18px; }
+#click-value { font-size: 14px; color: #ffe08a; }
+
+/* ---- Nombres flottants ------------------------------------------------------- */
+.float-number {
+  position: fixed; z-index: 5000; pointer-events: none;
+  font-family: 'Arial Black', Arial, sans-serif; font-size: 22px; color: #fff;
+  text-shadow: 2px 2px 0 #000, 0 0 6px rgba(0, 0, 0, 0.6);
+  animation: floatUpFade 0.9s ease-out forwards;
+  transform: translate(-50%, 0);
+}
+.float-number.gold { color: #ffd700; font-size: 28px; }
+.float-number.hot { color: #ff6b6b; }
+.float-number.passive { color: #b6f58a; font-size: 16px; animation-duration: 1.4s; }
+@keyframes floatUpFade {
+  0% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -80px) scale(1.15); }
+}
+
+/* ---- Bonus ------------------------------------------------------------------- */
+.bonus-bubble {
+  position: fixed; bottom: -60px; z-index: 9999; cursor: pointer;
+  padding: 10px 18px; border-radius: 24px; background: linear-gradient(145deg, #ffe066, #ffb400);
+  color: #3a2300; font-weight: bold; box-shadow: 0 0 18px rgba(255, 200, 0, 0.9); border: 2px solid #fff3b0;
+  animation: floatUp 6s linear forwards;
+}
+.bonus-bubble:hover { transform: scale(1.1); }
+@keyframes floatUp { from { bottom: -60px; } to { bottom: 95%; } }
+#bonus-banner {
+  position: fixed; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10000;
+  padding: 8px 18px; background: #ffdd57; border: 2px solid #000; border-radius: 8px; font-weight: bold; color: #000;
+}
+body.bonus-active .money-container { box-shadow: 0 0 25px #ffd700; }
+
+/* ---- Toasts ------------------------------------------------------------------- */
+#toast-host { position: fixed; top: 110px; left: 50%; transform: translateX(-50%); z-index: 10001; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast {
+  display: flex; align-items: center; gap: 10px; min-width: 260px; max-width: 420px;
+  background: rgba(20, 12, 4, 0.92); color: #fff; border: 2px solid #ff9800; border-radius: 10px;
+  padding: 8px 14px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); animation: toastIn 0.3s ease-out;
+}
+.toast-icon { font-size: 26px; }
+.toast-title { font-weight: bold; color: #ffd700; }
+.toast-text { font-size: 13px; opacity: 0.9; }
+.toast-out { animation: toastOut 0.3s ease-in forwards; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes toastOut { to { opacity: 0; transform: translateY(-12px); } }
+
+/* ---- Modales ------------------------------------------------------------------- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 20000; display: flex; align-items: center; justify-content: center; }
+.modal {
+  background: linear-gradient(135deg, #3a2210, #5a3418); color: #fff; border: 3px solid #ff9800; border-radius: 14px;
+  padding: 22px 26px; width: min(92vw, 460px); max-height: 85vh; overflow: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  animation: toastIn 0.25s ease-out;
+}
+.modal-title { color: #ffd700; margin-bottom: 12px; text-align: center; }
+.modal-body p { margin: 8px 0; line-height: 1.4; }
+.modal-body .big { font-size: 32px; font-weight: bold; color: #ffd700; text-align: center; }
+.modal-body .muted { font-size: 12px; opacity: 0.7; }
+.modal-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+.modal-btn { padding: 10px 18px; border-radius: 8px; border: 2px solid #fff; background: rgba(0, 0, 0, 0.4); color: #fff; font-weight: bold; cursor: pointer; }
+.modal-btn.primary { background: linear-gradient(to bottom, #f39c12, #e67e22); border-color: #d35400; }
+.modal-btn.danger { background: #b71c1c; border-color: #ff5252; }
+.modal-btn:hover { filter: brightness(1.15); }
+.ach-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.ach-list li { display: flex; gap: 10px; align-items: center; padding: 6px 8px; border-radius: 8px; background: rgba(0, 0, 0, 0.3); opacity: 0.55; }
+.ach-list li.done { opacity: 1; background: rgba(255, 200, 0, 0.15); }
+.ach-list li span { font-size: 22px; }
+
+/* ---- Prestige & menu ------------------------------------------------------------- */
+#prestige-btn {
+  position: fixed; bottom: 20px; left: 20px; z-index: 1000;
+  padding: 10px 16px; border-radius: 10px; border: 2px solid #777; background: rgba(0, 0, 0, 0.6); color: #bbb;
+  font-weight: bold; cursor: pointer; transition: all 0.2s;
+}
+#prestige-btn.ready { border-color: #ffd700; color: #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.6); animation: hot 0.8s infinite alternate; }
+#prestige-btn.ready:hover { background: #ffd700; color: #000; }
+.menu-small-btn {
+  position: absolute; bottom: 24%; left: 50%; transform: translateX(-50%); z-index: 10;
+  background: rgba(0, 0, 0, 0.5); color: #ddd; border: 1px solid #999; border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px;
+}
+.menu-small-btn:hover { background: #b71c1c; color: #fff; }
+.nav-icon-btn { background: none; border: none; font-size: 24px; cursor: pointer; margin-right: 12px; line-height: 1; transition: transform 0.2s; }
+.nav-icon-btn:hover { transform: scale(1.15); }
+.pulse { animation: shake 0.4s; }
+
+/* ---- Responsive ------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .UpgradePanelLeft, .UpgradePanelRight { width: 260px; }
+  .Name { font-size: 14px; }
+  .click-meter-container { display: none; }
+}
+@media (max-width: 820px) {
+  .title-container h1 { font-size: 4.5rem; }
+  .title-container h2 { font-size: 3.5rem; }
+  .title-image { height: 3.5rem; }
+  .stamina-bar-container { top: 90px; left: 50%; }
+  .stamina-bar-wrapper { width: 50vw; height: 36px; }
+  .money-container { left: 10px; top: 10px; min-width: 0; }
+  .money-amount, #stars-count { font-size: 22px; }
+  .ChevalPanel { position: static; }
+  .Modelpart { top: 190px; height: 230px; width: 100%; padding: 0; }
+  #Model3D { height: 200px; }
+  #click-value, #horse-title { display: none; }
+  /* Lignes de boutique compactes : nom + prix à gauche, bouton à droite */
+  .Foods { height: 64px; padding: 4px; }
+  .Foods .UpgradeImage { width: 30px; height: 30px; left: 6px; top: 50%; transform: translateY(-50%); }
+  .ItemIcon { font-size: 22px; }
+  .Foods .Name { left: 42px; top: 8px; right: 92px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .Foods .Price { left: 42px; right: auto; bottom: 8px; font-size: 12px; }
+  .Foods .Number { display: none; }
+  .Foods .UpgradeButton { right: 4px; bottom: auto; top: 50%; transform: translateY(-50%); padding: 4px 8px; font-size: 12px; }
+  .UpgradePanelLeft, .UpgradePanelRight {
+    top: auto; bottom: 70px; transform: none; width: calc(50% - 16px); max-height: 34vh; padding: 8px 6px;
+  }
+  .UpgradePanelLeft { left: 6px; }
+  .UpgradePanelRight { right: 6px; }
+  .side-panel h2 { font-size: 16px; }
+  .food-container { max-height: calc(34vh - 60px); }
+  .Foods { height: 56px; }
+  .mission-container { min-width: 0; width: 94vw; bottom: auto; top: 136px; font-size: 12px; padding: 6px 8px; }
+  .mission-header { font-size: 14px; margin-bottom: 4px; padding-bottom: 4px; }
+  .mission-description { font-size: 12px; margin-bottom: 6px; }
+  .mission-progress-bar { height: 10px; margin-bottom: 4px; }
+  .mission-info { margin-top: 4px; font-size: 11px; }
+  #prestige-btn { bottom: 10px; left: 10px; font-size: 12px; padding: 8px 10px; }
+  .navbar { bottom: 10px; right: 10px; }
+  #volume-slider { display: none; }
+}
