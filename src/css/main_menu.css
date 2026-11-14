@@ -8,8 +8,9 @@
 body {
   font-family: Arial, sans-serif;
   height: 100vh;
-  background-image: url("/images/Background/2.jpg");
-  background-size: contain;
+  background-image: url("/images/Background/2.webp");
+  background-size: cover;
+  background-position: center;
   overflow: hidden; /* Empêche le défilement de la page */
 }
 
